@@ -7,14 +7,6 @@ from django.core.files import File
 
 # Create your models here.
 
-class User(models.Model):
-    userID = models.IntegerField(primary_key=True)
-    login = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.login
-
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
