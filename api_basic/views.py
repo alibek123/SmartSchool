@@ -86,10 +86,11 @@ class CategoryDetail(APIView):
 
 @api_view(['POST'])
 def search(request):
-    query = request.data.get('query','')
+    query = request.data.get('query', '')
     print(query)
     if query:
-        meals = Meal.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        meals = Meal.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query) | Q(price__icontains=query))
         serializer = MealSerializer(meals, many=True)
         return Response(serializer.data)
     else:

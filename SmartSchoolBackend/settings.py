@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'api_basic',
     'rest_framework',
     'rest_framework.authtoken',
+    'order',
 
 ]
 
