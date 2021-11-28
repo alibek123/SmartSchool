@@ -1,5 +1,5 @@
 from django.db import models
-from PIL import Image
+from PIL import Image, ImageOps
 from io import BytesIO
 
 from django.core.files import File
@@ -60,13 +60,13 @@ class Meal(models.Model):
             else:
                 return ''
 
-    def make_thumbnail(self, image, size=(300, 200)):
+    def make_thumbnail(self, image, size=(300, 300)):
         img = Image.open(image)
         img.convert('RGB')
-        img.thumbnail(size)
+        img.thumbnail(size, Image.ANTIALIAS)
 
         thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
+        img.save(thumb_io, 'PNG', quality=85)
 
         thumbnail = File(thumb_io, name=image.name)
 
