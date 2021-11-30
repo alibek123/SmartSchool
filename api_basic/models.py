@@ -4,8 +4,8 @@ from io import BytesIO
 
 from django.core.files import File
 
-
 # Create your models here.
+from django.http import HttpRequest
 
 
 class Category(models.Model):
@@ -45,18 +45,19 @@ class Meal(models.Model):
 
     def get_image(self):
         if self.image:
-            return 'http://127.0.0.1:8000' + self.image.url
+            ss = HttpRequest.get_full_path
+            return f'http://192.168.1.39' + self.image.url
         return ''
 
     def get_thumbnail(self):
         if self.thumbnail:
-            return 'http://127.0.0.1:8000' + self.thumbnail.url
+            return 'http://192.168.1.39' + self.thumbnail.url
         else:
             if self.image:
                 self.thumbnail = self.make_thumbnail(self.image)
                 self.save()
 
-                return 'http://127.0.0.1:8000/' + self.thumbnail.url
+                return 'http://192.168.1.39' + self.thumbnail.url
             else:
                 return ''
 
